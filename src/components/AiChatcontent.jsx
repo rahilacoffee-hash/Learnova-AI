@@ -104,7 +104,7 @@ const AiChatContent = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto space-y-8">
+    <div className="max-w-7xl mx-auto space-y-8 ">
       {/* Header */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div>
@@ -199,6 +199,7 @@ const AiChatContent = () => {
           shadow-xl
           border border-white/40
           overflow-hidden
+          
         "
       >
         {/* Chat Header */}
@@ -315,7 +316,11 @@ const AiChatContent = () => {
             </button>
           </div>
         </div>
+        
       </div>
+        <br/>
+        <br/>
+      
     </div>
   );
 };

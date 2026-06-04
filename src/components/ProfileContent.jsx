@@ -133,12 +133,12 @@ const ProfilePage = () => {
               <div className="w-28 h-28 rounded-3xl bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center text-white text-4xl font-bold shadow-lg">
                 {user.name
                   ? user.name.charAt(0).toUpperCase()
-                  : "U"}
+                  : ""}
               </div>
 
               <div>
                 <h1 className="text-3xl font-bold text-gray-900">
-                  {user.name || "Student"}
+                  {user.name || "Login/signup"}
                 </h1>
 
                 <p className="text-gray-500 mt-2 flex items-center gap-2">

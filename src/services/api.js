@@ -72,14 +72,14 @@ export const submitQuiz = (quizId, answers) =>
 
 // ================= FLASHCARDS =================
 
+// FLASHCARDS
 export const generateFlashcards = (noteId) =>
   API.post("/flashcards/generate", { noteId });
 
+export const getFlashcardsByNote = (noteId) =>
+  API.get(`/flashcards/${noteId}`);
+
 export const getAllFlashcards = () =>
   API.get("/flashcards");
-
-export const getFlashcardsByNote = (noteId) =>
-  API.get(`/flashcards
-    /${noteId}`);
 
 export default API;
