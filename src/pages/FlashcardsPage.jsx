@@ -24,7 +24,7 @@ const FlashcardsPage = () => {
           pb-24
           px-4
           md:px-8
-        ml-[380px]
+        md:ml-[380px]
           min-h-screen
           
         "
