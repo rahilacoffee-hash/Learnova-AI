@@ -12,6 +12,7 @@ import SummaryPage from "./pages/SummaryPage";
 import ProfilePage from "./pages/ProfilePage";import AiChatPage from "./pages/AiChatPage";
 import QuizPage from "./pages/QuizPage";
 import FlashcardsPage from "./pages/FlashcardsPage";
+import ProfileContent from "./components/Editprofile";
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/chat" element={<AiChatPage />} />
         <Route path="/chat/:noteId" element={<AiChatPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/edit" element={<ProfileContent />} />
         <Route
   path="/flashcards/:noteId"
   element={<FlashcardsPage />}

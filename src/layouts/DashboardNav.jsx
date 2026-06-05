@@ -36,7 +36,7 @@ const DashboardNav = () => {
         {/* Logo */}
         <div>
           <h1 className="text-lg font-bold text-black">
-            AI Study
+            Learnova AI
           </h1>
 
           <p className="text-xs text-slate-500">

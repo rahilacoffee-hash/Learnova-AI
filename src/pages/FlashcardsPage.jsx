@@ -7,7 +7,6 @@ import Flashcardscontent from "../components/Flashcardscontent";
 const FlashcardsPage = () => {
   return (
     <div className="min-h-screen bg-[#f8f9fc] overflow-x-hidden">
-      
       {/* Mobile Header */}
       <div className="md:hidden">
         <MobileDashNav />
@@ -25,8 +24,9 @@ const FlashcardsPage = () => {
           pb-24
           px-4
           md:px-8
-          md:ml-[280px]
+        ml-[380px]
           min-h-screen
+          
         "
       >
         <Flashcardscontent />

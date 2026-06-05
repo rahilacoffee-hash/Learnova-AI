@@ -109,7 +109,7 @@ const AiChatContent = () => {
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div>
           <h1 className="text-5xl font-bold text-slate-900">
-            AI Study Assistant
+            Learnova AI
           </h1>
 
           <p className="text-slate-500 mt-2">

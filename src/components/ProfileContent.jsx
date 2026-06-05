@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   LogOut,
   User,
@@ -152,10 +152,11 @@ const ProfilePage = () => {
                 </div>
               </div>
             </div>
-
+<Link to="/edit">
             <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-medium shadow-lg hover:scale-105 transition">
               Edit Profile
             </button>
+            </Link>
           </div>
         </div>
 

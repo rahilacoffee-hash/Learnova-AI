@@ -117,7 +117,7 @@ const Sidebar = () => {
 
             <div>
               <h3 className="font-semibold text-sm">
-                {user?.name || "Student"}
+                {user?.name || "Login/Signup"}
               </h3>
 
               <p className="text-xs text-gray-500 truncate">
