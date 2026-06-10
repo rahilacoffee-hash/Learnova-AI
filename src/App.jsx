@@ -13,6 +13,7 @@ import ProfilePage from "./pages/ProfilePage";import AiChatPage from "./pages/Ai
 import QuizPage from "./pages/QuizPage";
 import FlashcardsPage from "./pages/FlashcardsPage";
 import ProfileContent from "./components/Editprofile";
+import Quiz from "./pages/Quiz";
 
 const App = () => {
   return (
@@ -35,6 +36,8 @@ const App = () => {
   path="/flashcards/:noteId"
   element={<FlashcardsPage />}
 />
+  <Route path="/quiz" element={<Quiz />} />
+
       </Routes>
     </BrowserRouter>
   );

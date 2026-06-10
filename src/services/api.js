@@ -46,7 +46,6 @@ export const generateSummary = (noteId) =>
 export const getAllSummaries = () =>
   API.get("/ai/summaries");
 
-
 // ================= AI CHAT =================
 export const askAI = (noteId, question) =>
   API.post("/ai/ask", {
@@ -66,13 +65,7 @@ export const submitQuiz = (quizId, answers) =>
     answers,
   });
 
-
-
-
-
 // ================= FLASHCARDS =================
-
-// FLASHCARDS
 export const generateFlashcards = (noteId) =>
   API.post("/flashcards/generate", { noteId });
 
@@ -81,5 +74,25 @@ export const getFlashcardsByNote = (noteId) =>
 
 export const getAllFlashcards = () =>
   API.get("/flashcards");
+
+// ================= DASHBOARD =================
+export const getOverview = () =>
+  API.get("/dashboard/overview");
+
+export const getActivity = () =>
+  API.get("/dashboard/activity");
+
+export const getHeatmap = () =>
+  API.get("/dashboard/heatmap");
+
+export const getStreak = () =>
+  API.get("/dashboard/streak");
+
+
+export const getDashboard = () =>
+  API.get("/dashboard");
+
+export const getQuizAnalytics = () =>
+  API.get("/dashboard/quizzes");
 
 export default API;
