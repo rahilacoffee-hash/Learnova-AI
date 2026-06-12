@@ -16,9 +16,7 @@ const ProfilePage = () => {
     <div className="min-h-screen bg-gray-100 flex flex-col overflow-x-hidden">
       {/* Header */}
       <header className="w-full">
-        <div className="md:hidden">
-          <MobileDashNav />
-        </div>
+        
       </header>
 
       {/* Body */}
