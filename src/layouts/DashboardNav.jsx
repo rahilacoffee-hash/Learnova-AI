@@ -286,9 +286,12 @@ const DashboardNav = () => {
                   font-bold
                 "
               >
-                {user.name
-                  ?.charAt(0)
-                  .toUpperCase()}
+
+                <img
+                src={ "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSatxU0q9eadOAPWotvfcEY6MSpeJmU7QS0husqy2VrEw&s=10" || user.avatar}
+                />
+
+              
               </div>
 
               <div className="text-left">

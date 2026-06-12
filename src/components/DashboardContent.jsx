@@ -14,6 +14,7 @@ import QuickActions from "./DashboardContent/QuickActions";
 import StudyHeatmap from "./DashboardContent/StudyHeatmap";
 import RecentActivity from "./DashboardContent/RecentActivity";
 import AICoach from "./DashboardContent/AICoachsx";
+import StudyPlanner from "./DashboardContent/StudyPlanner";
 
 
 
@@ -131,7 +132,9 @@ const DashboardContent = () => {
           />
         </div>
 
-        <div className="xl:col-span-3">
+        <div className="xl:col-span-3 space-y-6">
+          <StudyPlanner  />
+
           <AICoach />
         </div>
 

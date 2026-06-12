@@ -36,9 +36,7 @@ const QuizContent = () => {
       });
 
       const quizId = res.data.quiz._id;
-
       const quizRes = await getQuiz(quizId);
-
       setQuiz(quizRes.data.quiz);
     } catch (error) {
       console.log(error);
@@ -47,9 +45,10 @@ const QuizContent = () => {
     }
   };
 
-  const handleAnswer = (option) => {
+  const handleAnswer = (option, index) => {
+    const letter = ["A", "B", "C", "D"][index];
     const updated = [...answers];
-    updated[currentQuestion] = option;
+    updated[currentQuestion] = letter;
     setAnswers(updated);
   };
 
@@ -61,11 +60,11 @@ const QuizContent = () => {
 
   const handleSubmit = async () => {
     try {
-      const res = await submitQuiz(
-        quiz._id,
-        answers
+      const formattedAnswers = quiz.questions.map(
+        (_, index) => answers[index] ?? null
       );
 
+      const res = await submitQuiz(quiz._id, formattedAnswers);
       setResult(res.data);
     } catch (error) {
       console.log(error);
@@ -75,15 +74,12 @@ const QuizContent = () => {
   if (loading) {
     return (
       <div className="space-y-6">
-
         <h1 className="text-4xl font-bold text-slate-900">
           AI Quiz
         </h1>
-
         <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-10 shadow-xl">
           Generating Quiz...
         </div>
-
       </div>
     );
   }
@@ -104,7 +100,6 @@ const QuizContent = () => {
           <h1 className="text-4xl font-bold text-slate-900">
             Quiz Results
           </h1>
-
           <p className="text-slate-500 mt-2">
             Review your performance
           </p>
@@ -113,49 +108,33 @@ const QuizContent = () => {
         <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-10 shadow-xl">
 
           <div className="flex items-center gap-4 mb-8">
-            <Trophy
-              size={60}
-              className="text-yellow-500"
-            />
-
+            <Trophy size={60} className="text-yellow-500" />
             <div>
               <h2 className="text-3xl font-bold text-black">
                 {result.percentage}%
               </h2>
-
-              <p className="text-slate-500">
-                Final Score
-              </p>
+              <p className="text-slate-500">Final Score</p>
             </div>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
 
             <div className="bg-indigo-50 rounded-2xl p-6">
-              <h3 className="text-slate-500">
-                Correct
-              </h3>
-
+              <h3 className="text-slate-500">Correct</h3>
               <p className="text-3xl font-bold text-green-600">
                 {result.score}
               </p>
             </div>
 
             <div className="bg-red-50 rounded-2xl p-6">
-              <h3 className="text-slate-500">
-                Wrong
-              </h3>
-
+              <h3 className="text-slate-500">Wrong</h3>
               <p className="text-3xl font-bold text-red-600">
                 {result.total - result.score}
               </p>
             </div>
 
             <div className="bg-cyan-50 rounded-2xl p-6">
-              <h3 className="text-slate-500">
-                Questions
-              </h3>
-
+              <h3 className="text-slate-500">Questions</h3>
               <p className="text-3xl font-bold text-black">
                 {result.total}
               </p>
@@ -169,11 +148,8 @@ const QuizContent = () => {
   }
 
   const question = quiz.questions[currentQuestion];
-
   const progress =
-    ((currentQuestion + 1) /
-      quiz.questions.length) *
-    100;
+    ((currentQuestion + 1) / quiz.questions.length) * 100;
 
   return (
     <div className="space-y-8">
@@ -183,7 +159,6 @@ const QuizContent = () => {
         <h1 className="text-4xl font-bold text-slate-900">
           AI Quiz
         </h1>
-
         <p className="text-slate-500 mt-2">
           Test your understanding
         </p>
@@ -193,15 +168,12 @@ const QuizContent = () => {
       <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-6 shadow-lg">
 
         <div className="flex justify-between mb-3">
-
           <span className="font-medium text-black">
             Question {currentQuestion + 1}
           </span>
-
           <span className="text-slate-500">
             {quiz.questions.length}
           </span>
-
         </div>
 
         <div className="h-3 bg-slate-200 rounded-full overflow-hidden">
@@ -217,40 +189,42 @@ const QuizContent = () => {
       <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-8 shadow-xl">
 
         <div className="flex items-center gap-3 mb-6">
-
           <Brain className="text-indigo-600" />
-
           <h2 className="text-2xl font-bold text-black">
             {question.question}
           </h2>
-
         </div>
 
         <div className="space-y-4">
-
-          {question.options.map((option, index) => (
-            <button
-              key={index}
-              onClick={() => handleAnswer(option)}
-              className={`w-full text-left p-5 rounded-2xl border transition-all ${
-                answers[currentQuestion] === option
-                  ? "bg-indigo-600 text-white border-indigo-600"
-                  : "bg-white hover:border-indigo-500 text-black"
-              }`}
-            >
-              {option}
-            </button>
-          ))}
-
+          {question.options.map((option, index) => {
+            const letter = ["A", "B", "C", "D"][index];
+            return (
+              <button
+                key={index}
+                onClick={() => handleAnswer(option, index)}
+                className={`w-full text-left p-5 rounded-2xl border transition-all ${
+                  answers[currentQuestion] === letter
+                    ? "bg-indigo-600 text-white border-indigo-600"
+                    : "bg-white hover:border-indigo-500 text-black"
+                }`}
+              >
+                <span className="font-semibold mr-2">{letter}.</span>
+                {option}
+              </button>
+            );
+          })}
         </div>
 
         <div className="mt-8 flex justify-end">
-
-          {currentQuestion <
-          quiz.questions.length - 1 ? (
+          {currentQuestion < quiz.questions.length - 1 ? (
             <button
               onClick={nextQuestion}
-              className="flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-cyan-500 text-white px-8 py-3 rounded-xl"
+              disabled={!answers[currentQuestion]}
+              className={`flex items-center gap-2 px-8 py-3 rounded-xl text-white transition-opacity ${
+                answers[currentQuestion]
+                  ? "bg-gradient-to-r from-indigo-600 to-cyan-500"
+                  : "bg-slate-300 cursor-not-allowed"
+              }`}
             >
               Next
               <ArrowRight size={18} />
@@ -258,13 +232,17 @@ const QuizContent = () => {
           ) : (
             <button
               onClick={handleSubmit}
-              className="flex items-center gap-2 bg-green-600 text-white px-8 py-3 rounded-xl"
+              disabled={!answers[currentQuestion]}
+              className={`flex items-center gap-2 px-8 py-3 rounded-xl text-white ${
+                answers[currentQuestion]
+                  ? "bg-green-600"
+                  : "bg-slate-300 cursor-not-allowed"
+              }`}
             >
               <CheckCircle size={18} />
               Submit Quiz
             </button>
           )}
-
         </div>
 
       </div>

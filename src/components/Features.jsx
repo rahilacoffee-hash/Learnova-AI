@@ -1,121 +1,111 @@
-import React, { useState } from "react";
-import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
-import { GiStabbedNote } from "react-icons/gi";
 import { MdUploadFile, MdQuiz } from "react-icons/md";
+import { GiStabbedNote } from "react-icons/gi";
 import { IoChatboxOutline } from "react-icons/io5";
+import ScrollStack, { ScrollStackItem } from "../layouts/ScrollStack";
 
 const highlights = [
   {
     icon: MdUploadFile,
     title: "Upload Notes",
     description: "Upload PDF or TXT files and extract content instantly.",
+    gradient: "from-blue-600 via-blue-500 to-indigo-600",
+    accent: "bg-blue-400/20",
+    tag: "Step 01",
   },
   {
     icon: GiStabbedNote,
     title: "AI Summaries",
-    description: "Get accurate summaries of your study materials.",
+    description: "Get accurate summaries of your study materials in seconds.",
+    gradient: "from-violet-600 via-purple-500 to-fuchsia-600",
+    accent: "bg-violet-400/20",
+    tag: "Step 02",
   },
   {
     icon: MdQuiz,
     title: "Quiz Generation",
-    description:
-      "Generate quizzes automatically from your uploaded notes.",
+    description: "Generate quizzes automatically from your uploaded notes.",
+    gradient: "from-pink-600 via-rose-500 to-red-500",
+    accent: "bg-pink-400/20",
+    tag: "Step 03",
   },
   {
     icon: IoChatboxOutline,
     title: "AI Chat",
-    description:
-      "Ask questions and get AI-generated answers based on your notes.",
+    description: "Ask questions and get AI-generated answers based on your notes.",
+    gradient: "from-emerald-600 via-teal-500 to-cyan-500",
+    accent: "bg-emerald-400/20",
+    tag: "Step 04",
   },
 ];
 
 const Features = () => {
-  const [activeTab, setActiveTab] = useState(0);
-
-  const next = () => {
-    setActiveTab((prev) => (prev + 1) % highlights.length);
-  };
-
-  const prevs = () => {
-    setActiveTab(
-      (prev) => (prev - 1 + highlights.length) % highlights.length
-    );
-  };
-
-  const ActiveIcon = highlights[activeTab].icon;
-
   return (
-    <section id="features" className="py-32 relative overflow-hidden ">
-      {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 w-[800px] h-[800px] bg-[#020817] rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+    <section id="features" className="py-24 relative overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#020817]/80 to-transparent pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-secondary-foreground text-sm font-medium tracking-wider uppercase animate-fade-in">
-            Power Features for Better Learning
+        <div className="text-center max-w-2xl mx-auto mb-20 px-6">
+          <span className="inline-block px-4 py-1.5 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs font-semibold tracking-widest uppercase mb-5">
+            Power Features
           </span>
-
-          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6 animate-fade-in animation-delay-100 text-secondary-foreground">
-            Everything you need to study smarter,
-            <span className="font-serif italic font-normal text-white">
-              {" "}
-              all in one place.
+          <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight">
+            Everything you need to{" "}
+            <span className="font-serif italic font-normal bg-gradient-to-r from-primary to-cyan-400 bg-clip-text text-transparent">
+              study smarter.
             </span>
           </h2>
+          <p className="text-muted-foreground mt-4 text-base">
+            One platform. Four powerful tools. Zero wasted study time.
+          </p>
         </div>
 
-        {/* Feature Card */}
-        <div className="max-w-4xl mx-auto">
-          <div className="glass p-8 md:p-12 rounded-3xl glow-border animate-fade-in animation-delay-200">
-            <div className="flex flex-col items-center text-center">
-              {/* Dynamic Icon */}
-              <div className="w-24 h-24 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
-                <ActiveIcon className="text-5xl text-primary" />
-              </div>
-
-              {/* Title */}
-              <h3 className="text-2xl md:text-3xl font-bold mb-4 text-secondary-foreground">
-                {highlights[activeTab].title}
-              </h3>
-
-              {/* Description */}
-              <p className="text-muted-foreground max-w-lg text-lg">
-                {highlights[activeTab].description}
-              </p>
-            </div>
-          </div>
-
-          {/* Navigation */}
-          <div className="flex items-center justify-center gap-4 mt-8">
-            <button
-              className="p-3 rounded-full glass hover:bg-primary/10 hover:text-primary transition"
-              onClick={prevs}
-            >
-              <BiLeftArrow size={20} />
-            </button>
-
-            <div className="flex gap-2">
-              {highlights.map((_, idx) => (
-                <button
+        {/* Scroll Stack */}
+        <div className="w-full max-w-3xl mx-auto h-screen px-6">
+          <ScrollStack
+            className="scroll-stack-hide-bar"
+            itemDistance={180}
+            stackPosition="18%"
+            baseScale={0.88}
+            itemStackDistance={28}
+            rotationAmount={0}
+            blurAmount={1.5}
+          >
+            {highlights.map((feature, idx) => {
+              let Icon = feature.icon;
+              return (
+                <ScrollStackItem
                   key={idx}
-                  onClick={() => setActiveTab(idx)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    idx === activeTab
-                      ? "w-8 bg-primary"
-                      : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
-                  }`}
-                />
-              ))}
-            </div>
+                  itemClassName={`bg-gradient-to-br ${feature.gradient} border border-white/10`}
+                >
+                  {/* Top row: tag + icon */}
+                  <div className="flex items-start justify-between mb-8">
+                    <span className={`text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full ${feature.accent} text-white/70`}>
+                      {feature.tag}
+                    </span>
+                    <div className={`w-14 h-14 rounded-2xl ${feature.accent} flex items-center justify-center`}>
+                      <Icon className="text-3xl text-white" />
+                    </div>
+                  </div>
 
-            <button
-              className="p-3 rounded-full glass hover:bg-primary/10 hover:text-primary transition"
-              onClick={next}
-            >
-              <BiRightArrow size={20} />
-            </button>
-          </div>
+                  {/* Content */}
+                  <div className="mt-auto">
+                    <h3 className="text-3xl md:text-4xl font-bold text-white mb-3 leading-tight">
+                      {feature.title}
+                    </h3>
+                    <p className="text-white/60 text-base leading-relaxed max-w-sm">
+                      {feature.description}
+                    </p>
+                  </div>
+
+                  {/* Bottom decorative line */}
+                  <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent rounded-b-[40px]" />
+                </ScrollStackItem>
+              );
+            })}
+          </ScrollStack>
         </div>
       </div>
     </section>

@@ -116,7 +116,7 @@ const QuickActions = () => {
               "text-green-400",
 
             path:
-              "/flashcards",
+              "/flashcard",
           });
         }
 

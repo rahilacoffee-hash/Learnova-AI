@@ -22,6 +22,12 @@ export const loginUser = (data) =>
 export const registerUser = (data) =>
   API.post("/auth/register", data);
 
+export const uploadAvatar = (formData) =>
+  API.post("/auth/avatar", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 // ================= NOTES =================
 export const uploadNote = (formData) =>
   API.post("/notes/upload", formData, {
@@ -94,5 +100,8 @@ export const getDashboard = () =>
 
 export const getQuizAnalytics = () =>
   API.get("/dashboard/quizzes");
+
+export const getPlanner = () =>
+  API.get("/dashboard/planner");  
 
 export default API;

@@ -196,9 +196,10 @@ const Sidebar = () => {
                 text-lg
               "
             >
-              {user?.name
-                ?.charAt(0)
-                ?.toUpperCase() || "L"}
+             <img
+                src={ "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSatxU0q9eadOAPWotvfcEY6MSpeJmU7QS0husqy2VrEw&s=10" || user.avatar}
+                />
+
             </div>
 
             <div className="flex-1 min-w-0">

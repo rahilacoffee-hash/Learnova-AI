@@ -38,7 +38,13 @@
     font-family: sans-serif;
   }
 
-  
+  .scroll-stack-hide-bar::-webkit-scrollbar {
+  display: none;
+}
+.scroll-stack-hide-bar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 }
 
 @layer component {

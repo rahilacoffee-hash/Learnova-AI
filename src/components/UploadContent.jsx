@@ -82,41 +82,93 @@ const UploadContent = () => {
     }
   };
 
-  return (
-    <div className="space-y-8">
+ return (
+  <div className="space-y-8 text-black">
+    {/* Header */}
+    <div>
+      <h1 className="text-4xl  font-bold">
+        Upload Study Material
+      </h1>
 
-      {/* Header */}
-      <div>
-        <h1 className="text-4xl font-bold text-slate-900">
-          Upload Notes
-        </h1>
+      <p className="text-slate-900 mt-2">
+        Turn your notes into AI summaries,
+        flashcards, quizzes, and study plans.
+      </p>
+    </div>
 
-        <p className="text-slate-500 mt-2">
-          Upload study materials and let AI create
-          summaries, quizzes and flashcards instantly.
-        </p>
-      </div>
-
-      {/* Upload Card */}
-      <form
-        onSubmit={handleUpload}
-        className="bg-white/70 backdrop-blur-xl border border-white/40 rounded-3xl shadow-xl p-8"
+    {/* Upload Card */}
+    <form
+      onSubmit={handleUpload}
+      className="
+        rounded-[32px]
+        bg-[#0B1022]
+        border border-white/10
+        p-8
+        shadow-[0_20px_60px_rgba(0,0,0,0.35)]
+      "
+    >
+      {/* Drop Zone */}
+      <div
+        className="
+          relative
+          overflow-hidden
+          rounded-[28px]
+          border-2 border-dashed border-indigo-500/30
+          bg-gradient-to-br
+          from-indigo-500/5
+          to-cyan-500/5
+          p-12
+          text-center
+        "
       >
-        <div className="border-2 border-dashed border-indigo-300 rounded-3xl p-12 text-center bg-gradient-to-br from-indigo-50 to-cyan-50">
-          <UploadCloud
-            size={70}
-            className="mx-auto text-indigo-600 mb-4"
-          />
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 left-1/4 w-48 h-48 bg-indigo-500/10 blur-[100px] rounded-full" />
 
-          <h2 className="text-xl font-semibold text-black mb-2">
-            Drag & Drop Notes
+          <div className="absolute bottom-0 right-1/4 w-48 h-48 bg-cyan-500/10 blur-[100px] rounded-full" />
+        </div>
+
+        <div className="relative z-10">
+          <div
+            className="
+              w-24 h-24
+              mx-auto
+              rounded-3xl
+              bg-indigo-500/10
+              flex items-center justify-center
+              mb-6
+            "
+          >
+            <UploadCloud
+              size={50}
+              className="text-indigo-400"
+            />
+          </div>
+
+          <h2 className="text-2xl text-white font-bold">
+            Upload Notes
           </h2>
 
-          <p className="text-slate-500 mb-6">
+          <p className="text-slate-400 mt-3 mb-8">
             PDF or TXT files supported
           </p>
 
-          <label className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl cursor-pointer transition">
+          <label
+            className="
+              inline-flex
+              items-center
+              gap-2
+              px-6 py-3
+              rounded-2xl
+              bg-gradient-to-r
+              from-indigo-600
+              to-cyan-500
+              text-white
+              font-medium
+              cursor-pointer
+              hover:scale-105
+              transition
+            "
+          >
             Browse Files
 
             <input
@@ -130,88 +182,195 @@ const UploadContent = () => {
           </label>
 
           {file && (
-            <div className="mt-6 flex justify-center items-center gap-2 text-green-600">
-              <FileText size={18} />
-              {file.name}
+            <div
+              className="
+                mt-8
+                inline-flex
+                items-center
+                gap-3
+                px-5 py-3
+                rounded-2xl
+                bg-green-500/10
+                border border-green-500/20
+              "
+            >
+              <FileText
+                size={20}
+                className="text-green-400"
+              />
+
+              <span className="text-green-300">
+                {file.name}
+              </span>
             </div>
           )}
         </div>
+      </div>
 
-        {/* Inputs */}
-        <div className="grid md:grid-cols-2 gap-6 mt-8">
+      {/* Inputs */}
+      <div className="grid md:grid-cols-2 gap-6 mt-8">
+        <div>
+          <label className="text-sm text-slate-400">
+            Note Title
+          </label>
+
           <input
             type="text"
-            placeholder="Note Title"
+            placeholder="Aerodynamics Lecture 3"
             value={title}
             onChange={(e) =>
               setTitle(e.target.value)
             }
-            className="bg-white border border-slate-200 rounded-xl p-4 text-black focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="
+              w-full
+              mt-2
+              rounded-2xl
+              bg-white/5
+              border border-white/10
+              px-5 py-4
+              text-white
+              placeholder:text-slate-500
+              focus:outline-none
+              focus:border-indigo-500
+            "
           />
+        </div>
+
+        <div>
+          <label className="text-sm text-slate-400">
+            Tags
+          </label>
 
           <input
             type="text"
-            placeholder="Tags (Physics, Math)"
+            placeholder="Physics, Math"
             value={tags}
             onChange={(e) =>
               setTags(e.target.value)
             }
-            className="bg-white border border-slate-200 rounded-xl p-4 text-black focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="
+              w-full
+              mt-2
+              rounded-2xl
+              bg-white/5
+              border border-white/10
+              px-5 py-4
+              text-white
+              placeholder:text-slate-500
+              focus:outline-none
+              focus:border-cyan-500
+            "
           />
         </div>
+      </div>
+
+      {/* Description */}
+      <div className="mt-6">
+        <label className="text-sm text-slate-400">
+          Description
+        </label>
 
         <textarea
-          placeholder="Description"
+          placeholder="Brief description of this study material..."
           value={description}
           onChange={(e) =>
             setDescription(e.target.value)
           }
-          className="w-full mt-6 h-32 bg-white border border-slate-200 rounded-xl p-4 text-black focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="
+            w-full
+            h-36
+            mt-2
+            rounded-2xl
+            bg-white/5
+            border border-white/10
+            p-5
+            text-white
+            placeholder:text-slate-500
+            resize-none
+            focus:outline-none
+            focus:border-purple-500
+          "
         />
+      </div>
 
-        {message && (
-          <div className="mt-4 text-center text-indigo-600 font-medium">
-            {message}
-          </div>
-        )}
-
-        <div className="mt-8 flex justify-end">
-          <button
-            type="submit"
-            disabled={loading}
-            className="bg-gradient-to-r from-indigo-600 to-cyan-500 text-white px-8 py-3 rounded-xl font-medium hover:scale-105 transition"
-          >
-            {loading
-              ? "Uploading..."
-              : "Upload Note"}
-          </button>
+      {/* Message */}
+      {message && (
+        <div
+          className="
+            mt-6
+            rounded-2xl
+            bg-indigo-500/10
+            border border-indigo-500/20
+            px-5 py-4
+            text-indigo-300
+          "
+        >
+          {message}
         </div>
-      </form>
+      )}
 
-      {/* Stats */}
-      <div className="grid md:grid-cols-2 gap-6">
-        <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-6 shadow-lg">
-          <h3 className="text-slate-500">
-            Files Uploaded
-          </h3>
+      {/* Button */}
+      <div className="mt-8 flex justify-end">
+        <button
+          type="submit"
+          disabled={loading}
+          className="
+            px-8 py-4
+            rounded-2xl
+            bg-gradient-to-r
+            from-indigo-600
+            to-cyan-500
+            font-semibold
+            hover:scale-105
+            disabled:opacity-50
+            transition
+          "
+        >
+          {loading
+            ? "Uploading..."
+            : "Upload Note"}
+        </button>
+      </div>
+    </form>
 
-          <p className="text-3xl font-bold text-black mt-2">
-            {stats.notes}
-          </p>
-        </div>
+    {/* Stats */}
+    <div className="grid md:grid-cols-2 gap-6">
+      <div
+        className="
+          rounded-[28px]
+          bg-[#0B1022]
+          border border-white/10
+          p-6
+        "
+      >
+        <p className="text-slate-400">
+          Total Notes
+        </p>
 
-        <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-6 shadow-lg">
-          <h3 className="text-slate-500">
-            AI Summaries
-          </h3>
+        <h3 className="text-4xl text-white font-bold mt-3">
+          {stats.notes}
+        </h3>
+      </div>
 
-          <p className="text-3xl font-bold text-black mt-2">
-            {stats.summaries}
-          </p>
-        </div>
+      <div
+        className="
+          rounded-[28px]
+          bg-[#0B1022]
+          border border-white/10
+          p-6
+        "
+      >
+        <p className="text-slate-400">
+          AI Summaries
+        </p>
+
+        <h3 className="text-4xl text-white font-bold mt-3">
+          {stats.summaries}
+        </h3>
       </div>
     </div>
-  );
+  </div>
+);
 };
 
 export default UploadContent;

@@ -14,11 +14,17 @@ import QuizPage from "./pages/QuizPage";
 import FlashcardsPage from "./pages/FlashcardsPage";
 import ProfileContent from "./components/Editprofile";
 import Quiz from "./pages/Quiz";
+import Flashcards from "./components/Flashcards";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
+    <>
+      <Toaster />
     <BrowserRouter>
+  
       <Routes>
+     
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
@@ -37,9 +43,11 @@ const App = () => {
   element={<FlashcardsPage />}
 />
   <Route path="/quiz" element={<Quiz />} />
+  <Route path="/flashcard" element={<Flashcards />} />
 
       </Routes>
     </BrowserRouter>
+    </>
   );
 };
 
