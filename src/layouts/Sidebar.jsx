@@ -40,9 +40,7 @@ const links = [
 const Sidebar = () => {
   const navigate = useNavigate();
 
-  const user = JSON.parse(
-    localStorage.getItem("user") || "{}"
-  );
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
 
   const isLoggedIn = !!user?.name;
 
@@ -109,14 +107,10 @@ const Sidebar = () => {
         <div className="mb-14">
           <h1 className="text-4xl font-bold text-white">
             Learn
-            <span className="text-cyan-400">
-              ova AI
-            </span>
+            <span className="text-cyan-400">ova AI</span>
           </h1>
 
-          <p className="text-slate-400 mt-2 text-sm">
-            Smart Learning Platform
-          </p>
+          <p className="text-slate-400 mt-2 text-sm">Smart Learning Platform</p>
         </div>
 
         {/* Navigation */}
@@ -157,9 +151,7 @@ const Sidebar = () => {
             >
               {link.icon}
 
-              <span className="font-medium">
-                {link.name}
-              </span>
+              <span className="font-medium">{link.name}</span>
             </NavLink>
           ))}
         </div>
@@ -196,21 +188,30 @@ const Sidebar = () => {
                 text-lg
               "
             >
-             <img
-                src={ "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSatxU0q9eadOAPWotvfcEY6MSpeJmU7QS0husqy2VrEw&s=10" || user.avatar}
-                />
-
+              <img
+                src={user.avatar}
+                alt={user.name}
+                className="
+    w-12
+    h-12
+    rounded-2xl
+    object-cover
+  "
+                onError={(e) => {
+                  e.target.src = `https://ui-avatars.com/api/?name=${
+                    user?.name || "User"
+                  }&background=4f46e5&color=fff`;
+                }}
+              />
             </div>
 
             <div className="flex-1 min-w-0">
               <h3 className="font-semibold text-white truncate">
-                {user?.name ||
-                  "Guest User"}
+                {user?.name || "Guest User"}
               </h3>
 
               <p className="text-xs text-slate-400 truncate">
-                {user?.email ||
-                  "Sign in to continue"}
+                {user?.email || "Sign in to continue"}
               </p>
             </div>
           </div>
@@ -238,14 +239,11 @@ const Sidebar = () => {
             "
           >
             <LogOut size={18} />
-
             Logout
           </button>
         ) : (
           <button
-            onClick={() =>
-              navigate("/login")
-            }
+            onClick={() => navigate("/login")}
             className="
               w-full
               py-4

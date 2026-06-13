@@ -101,7 +101,8 @@ export const getDashboard = () =>
 export const getQuizAnalytics = () =>
   API.get("/dashboard/quizzes");
 
+
 export const getPlanner = () =>
-  API.get("/dashboard/planner");  
+  API.get("/dashboard/planner");
 
 export default API;

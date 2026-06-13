@@ -32,7 +32,7 @@ const ProfilePage = () => {
 
       
 
-      <div className="md:hidden">
+      <div className="lg:hidden mt-8" >
         <MobileBottomNav />
       </div>
     </div>

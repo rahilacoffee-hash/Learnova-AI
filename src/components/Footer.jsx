@@ -1,93 +1,59 @@
-import React from "react";
-import { FaTwitter, FaInstagram, FaGithub } from "react-icons/fa";
-import { Link } from "react-router-dom";
 
-const Footer = () => {
+
+export default function Footer() {
   return (
-    <footer className="bg-black text-white py-16 px-6">
-      <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        <div className="grid md:grid-cols-4 gap-6">
-          <div>
-            <div className="flex gap-1 items-center ">
-              <img
-                src="/logo.png"
-                alt="AI Study Logo"
-                className="w-6 h-6 object-contain scale-350 "
-              />
-              <h2 className="text-xl font-bold">AI Study Assistant</h2>
-            </div>
+    <section id="cta" className="relative bg-[#080B14] py-32 px-6 overflow-hidden text-center">
 
-            <p className="text-gray-400 mt-4">
-              Study smarter with AI-powered learning tools.
-            </p>
-            <div className="flex gap-4 text-xl mt-4 ">
-              <div className="w-10 h-10 rounded-full bg-gray-200/20 flex items-center justify-center mb-4 hover:bg-primary/20">
-                <FaTwitter className="text-blue-700" />
-              </div>
-              <div className="w-10 h-10 rounded-full bg-gray-200/20 flex items-center justify-center mb-4 hover:bg-primary/20">
-                <FaInstagram className="text-blue-700" />
-              </div>
+      {/* grid */}
+      <div className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: "linear-gradient(rgba(99,102,241,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,0.04) 1px,transparent 1px)",
+          backgroundSize: "52px 52px"
+        }}
+      />
 
-              <div className="w-10 h-10 rounded-full bg-gray-200/20 flex items-center justify-center mb-4 hover:bg-primary/20">
-                {" "}
-                <FaGithub className="text-blue-700" />
-              </div>
-            </div>
-          </div>
+      {/* center glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] pointer-events-none rounded-full"
+        style={{ background: "radial-gradient(ellipse,rgba(99,102,241,0.16) 0%,rgba(34,211,238,0.05) 50%,transparent 70%)" }}
+      />
 
-          <div>
-            <h3 className="font-semibold mb-4">Product</h3>
-            <ul className="space-y-2 text-gray-400">
-              <li>Features</li>
-              <li>Pricing</li>
-              <li>Resources</li>
-            </ul>
-          </div>
+      <div className="relative z-10 max-w-2xl mx-auto">
+        <p className="text-xs font-semibold tracking-widest uppercase text-indigo-400 mb-6">Ready?</p>
 
-           <div>
-            <h3 className="font-semibold mb-4">Resources</h3>
-            <ul className="space-y-2 text-gray-400">
-              <li>
-                <Link to="/blog">
-                Blog
-                </Link>
-                </li>
-              <li>
-                 <Link to="/help-center">
-                Help Center
-                </Link></li>
-              <li>
-                 <Link to="/faq">FAQ</Link>
-                </li>
-            </ul>
-          </div>
+        <h2 className="font-bold text-slate-100 leading-tight mb-5"
+          style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(32px,5vw,62px)", letterSpacing: "-2px" }}>
+          Your notes deserve<br />
+          <span style={{
+            background: "linear-gradient(90deg,#6366F1 0%,#22D3EE 50%,#A78BFA 100%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text"
+          }}>
+            better tools.
+          </span>
+        </h2>
 
-          <div>
-            <h3 className="font-semibold mb-4">Company</h3>
-            <ul className="space-y-2 text-gray-400">
-              <li>
-                <Link to="/about">
-                About
-                </Link>
-                </li>
-              <li>
-                 <Link to="/contact">
-                Contact
-                </Link></li>
-              <li>
-                 <Link to="/careers">Careers</Link>
-                </li>
-            </ul>
-          </div>
+        <p className="text-slate-400 mb-10 max-w-md mx-auto" style={{ fontSize: "clamp(15px,1.4vw,17px)" }}>
+          Join students who already study smarter with LearnOva AI. Free to start — no credit card needed.
+        </p>
 
-        </div>
-
-        <div className="border-t border-gray-900 mt-10 pt-6 text-center text-gray-400">
-          © 2026 AI Study Assistant. All rights reserved.
+        <div className="flex flex-wrap gap-3 justify-center">
+          <a href="/register"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-white text-sm transition-all hover:-translate-y-0.5 active:translate-y-0"
+            style={{
+              fontFamily: "'Space Grotesk',sans-serif",
+              background: "linear-gradient(135deg,#6366F1,#4F46E5)",
+              boxShadow: "0 0 48px rgba(99,102,241,0.45)"
+            }}>
+            Create free account →
+          </a>
+          <a href="/login"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-slate-200 text-sm border border-slate-700/60 hover:border-indigo-500/50 hover:bg-indigo-500/7 transition-all"
+            style={{ fontFamily: "'Space Grotesk',sans-serif" }}>
+            Sign in
+          </a>
         </div>
       </div>
-    </footer>
+    </section>
   );
-};
-
-export default Footer;
+}

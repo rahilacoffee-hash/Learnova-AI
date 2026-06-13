@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from "react";
-import {
-  generateQuiz,
-  getQuiz,
-  submitQuiz,
-} from "../services/api";
+import { generateQuiz, getQuiz, submitQuiz } from "../services/api";
 
-import {
-  Brain,
-  CheckCircle,
-  Trophy,
-  ArrowRight,
-} from "lucide-react";
+import { Brain, CheckCircle, Trophy, ArrowRight } from "lucide-react";
 
 const QuizContent = () => {
   const noteId = window.location.pathname.split("/").pop();
@@ -61,7 +52,7 @@ const QuizContent = () => {
   const handleSubmit = async () => {
     try {
       const formattedAnswers = quiz.questions.map(
-        (_, index) => answers[index] ?? null
+        (_, index) => answers[index] ?? null,
       );
 
       const res = await submitQuiz(quiz._id, formattedAnswers);
@@ -74,9 +65,7 @@ const QuizContent = () => {
   if (loading) {
     return (
       <div className="space-y-6">
-        <h1 className="text-4xl font-bold text-slate-900">
-          AI Quiz
-        </h1>
+        <h1 className="text-4xl font-bold text-slate-900">AI Quiz</h1>
         <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-10 shadow-xl">
           Generating Quiz...
         </div>
@@ -95,18 +84,12 @@ const QuizContent = () => {
   if (result) {
     return (
       <div className="space-y-8">
-
         <div>
-          <h1 className="text-4xl font-bold text-slate-900">
-            Quiz Results
-          </h1>
-          <p className="text-slate-500 mt-2">
-            Review your performance
-          </p>
+          <h1 className="text-4xl font-bold text-slate-900">Quiz Results</h1>
+          <p className="text-slate-500 mt-2">Review your performance</p>
         </div>
 
         <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-10 shadow-xl">
-
           <div className="flex items-center gap-4 mb-8">
             <Trophy size={60} className="text-yellow-500" />
             <div>
@@ -118,7 +101,6 @@ const QuizContent = () => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-
             <div className="bg-indigo-50 rounded-2xl p-6">
               <h3 className="text-slate-500">Correct</h3>
               <p className="text-3xl font-bold text-green-600">
@@ -135,45 +117,32 @@ const QuizContent = () => {
 
             <div className="bg-cyan-50 rounded-2xl p-6">
               <h3 className="text-slate-500">Questions</h3>
-              <p className="text-3xl font-bold text-black">
-                {result.total}
-              </p>
+              <p className="text-3xl font-bold text-black">{result.total}</p>
             </div>
-
           </div>
-
         </div>
       </div>
     );
   }
 
   const question = quiz.questions[currentQuestion];
-  const progress =
-    ((currentQuestion + 1) / quiz.questions.length) * 100;
+  const progress = ((currentQuestion + 1) / quiz.questions.length) * 100;
 
   return (
     <div className="space-y-8">
-
       {/* Header */}
       <div>
-        <h1 className="text-4xl font-bold text-slate-900">
-          AI Quiz
-        </h1>
-        <p className="text-slate-500 mt-2">
-          Test your understanding
-        </p>
+        <h1 className="text-4xl font-bold text-slate-900">AI Quiz</h1>
+        <p className="text-slate-500 mt-2">Test your understanding</p>
       </div>
 
       {/* Progress */}
       <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-6 shadow-lg">
-
         <div className="flex justify-between mb-3">
           <span className="font-medium text-black">
             Question {currentQuestion + 1}
           </span>
-          <span className="text-slate-500">
-            {quiz.questions.length}
-          </span>
+          <span className="text-slate-500">{quiz.questions.length}</span>
         </div>
 
         <div className="h-3 bg-slate-200 rounded-full overflow-hidden">
@@ -182,17 +151,13 @@ const QuizContent = () => {
             style={{ width: `${progress}%` }}
           />
         </div>
-
       </div>
 
       {/* Question Card */}
       <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-8 shadow-xl">
-
         <div className="flex items-center gap-3 mb-6">
           <Brain className="text-indigo-600" />
-          <h2 className="text-2xl font-bold text-black">
-            {question.question}
-          </h2>
+          <h2 className="text-2xl font-bold text-black">{question.question}</h2>
         </div>
 
         <div className="space-y-4">
@@ -244,9 +209,7 @@ const QuizContent = () => {
             </button>
           )}
         </div>
-
       </div>
-
     </div>
   );
 };

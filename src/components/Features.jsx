@@ -1,115 +1,110 @@
-import { MdUploadFile, MdQuiz } from "react-icons/md";
-import { GiStabbedNote } from "react-icons/gi";
-import { IoChatboxOutline } from "react-icons/io5";
-import ScrollStack, { ScrollStackItem } from "../layouts/ScrollStack";
+import { FileText, Brain, LayoutGrid, MessageCircle, BarChart2, Cloud } from "lucide-react";
 
-const highlights = [
+const features = [
   {
-    icon: MdUploadFile,
-    title: "Upload Notes",
-    description: "Upload PDF or TXT files and extract content instantly.",
-    gradient: "from-blue-600 via-blue-500 to-indigo-600",
-    accent: "bg-blue-400/20",
-    tag: "Step 01",
+    icon: FileText,
+    color: "rgba(99,102,241,0.12)",
+    iconColor: "#818CF8",
+    title: "Smart Summaries",
+    desc: "Get concise, well-structured summaries of any document. Key concepts extracted and organised automatically — no skimming required.",
   },
   {
-    icon: GiStabbedNote,
-    title: "AI Summaries",
-    description: "Get accurate summaries of your study materials in seconds.",
-    gradient: "from-violet-600 via-purple-500 to-fuchsia-600",
-    accent: "bg-violet-400/20",
-    tag: "Step 02",
+    icon: Brain,
+    color: "rgba(34,211,238,0.10)",
+    iconColor: "#22D3EE",
+    title: "AI Quiz Generator",
+    desc: "Generate multiple-choice quizzes from your notes in seconds. Choose difficulty, get instant feedback, and track your score.",
   },
   {
-    icon: MdQuiz,
-    title: "Quiz Generation",
-    description: "Generate quizzes automatically from your uploaded notes.",
-    gradient: "from-pink-600 via-rose-500 to-red-500",
-    accent: "bg-pink-400/20",
-    tag: "Step 03",
+    icon: LayoutGrid,
+    color: "rgba(251,191,36,0.10)",
+    iconColor: "#FBBF24",
+    title: "Flashcard Builder",
+    desc: "Automatically extract key terms and definitions as flashcards. Study with spaced repetition and track what you've mastered.",
   },
   {
-    icon: IoChatboxOutline,
-    title: "AI Chat",
-    description: "Ask questions and get AI-generated answers based on your notes.",
-    gradient: "from-emerald-600 via-teal-500 to-cyan-500",
-    accent: "bg-emerald-400/20",
-    tag: "Step 04",
+    icon: MessageCircle,
+    color: "rgba(52,211,153,0.10)",
+    iconColor: "#34D399",
+    title: "Chat With Your Notes",
+    desc: "Ask questions about your material in plain English. LearnOva answers from your uploaded notes — like a tutor who read everything.",
+  },
+  {
+    icon: BarChart2,
+    color: "rgba(239,68,68,0.10)",
+    iconColor: "#F87171",
+    title: "Progress Dashboard",
+    desc: "See your quiz scores, study streaks, and activity over time. Know exactly where you're strong and where to focus next.",
+  },
+  {
+    icon: Cloud,
+    color: "rgba(167,139,250,0.10)",
+    iconColor: "#A78BFA",
+    title: "Upload notes, Anywhere",
+    desc: "Upload PDFs, or plain text. Your notes and generated content are saved and accessible on any device.",
   },
 ];
 
-const Features = () => {
+export default function FeaturesSection() {
   return (
-    <section id="features" className="py-24 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#020817]/80 to-transparent pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+    <section id="features" className="relative bg-[#0E1220] py-28 px-6 overflow-hidden">
 
-      <div className="relative z-10">
-        {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-20 px-6">
-          <span className="inline-block px-4 py-1.5 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs font-semibold tracking-widest uppercase mb-5">
-            Power Features
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight">
-            Everything you need to{" "}
-            <span className="font-serif italic font-normal bg-gradient-to-r from-primary to-cyan-400 bg-clip-text text-transparent">
-              study smarter.
-            </span>
+      {/* subtle grid */}
+      <div className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: "linear-gradient(rgba(99,102,241,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,0.03) 1px,transparent 1px)",
+          backgroundSize: "52px 52px"
+        }}
+      />
+
+      {/* glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(ellipse,rgba(99,102,241,0.10) 0%,transparent 70%)" }}
+      />
+
+      <div className="relative z-10 max-w-6xl mx-auto">
+
+        {/* header */}
+        <div className="text-center mb-16">
+          <p className="text-xs font-semibold tracking-widest uppercase text-indigo-400 mb-4">Features</p>
+          <h2 className="font-bold text-slate-100 leading-tight mb-4"
+            style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(28px,4vw,52px)", letterSpacing: "-1.5px" }}>
+            Everything you need to<br />ace any subject
           </h2>
-          <p className="text-muted-foreground mt-4 text-base">
-            One platform. Four powerful tools. Zero wasted study time.
+          <p className="text-slate-400 max-w-md mx-auto" style={{ fontSize: "clamp(15px,1.4vw,17px)" }}>
+            One upload. Five AI-powered tools that turn your notes into a complete study system.
           </p>
         </div>
 
-        {/* Scroll Stack */}
-        <div className="w-full max-w-3xl mx-auto h-screen px-6">
-          <ScrollStack
-            className="scroll-stack-hide-bar"
-            itemDistance={180}
-            stackPosition="18%"
-            baseScale={0.88}
-            itemStackDistance={28}
-            rotationAmount={0}
-            blurAmount={1.5}
-          >
-            {highlights.map((feature, idx) => {
-              let Icon = feature.icon;
-              return (
-                <ScrollStackItem
-                  key={idx}
-                  itemClassName={`bg-gradient-to-br ${feature.gradient} border border-white/10`}
-                >
-                  {/* Top row: tag + icon */}
-                  <div className="flex items-start justify-between mb-8">
-                    <span className={`text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full ${feature.accent} text-white/70`}>
-                      {feature.tag}
-                    </span>
-                    <div className={`w-14 h-14 rounded-2xl ${feature.accent} flex items-center justify-center`}>
-                      <Icon className="text-3xl text-white" />
-                    </div>
-                  </div>
+        {/* grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {features.map((f) => {
+            let Icon = f.icon;
+            return (
+              <div key={f.title}
+                className="relative group rounded-2xl border border-slate-700/50 bg-[#131929] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-indigo-500/40 overflow-hidden cursor-default">
 
-                  {/* Content */}
-                  <div className="mt-auto">
-                    <h3 className="text-3xl md:text-4xl font-bold text-white mb-3 leading-tight">
-                      {feature.title}
-                    </h3>
-                    <p className="text-white/60 text-base leading-relaxed max-w-sm">
-                      {feature.description}
-                    </p>
-                  </div>
+                {/* top shine on hover */}
+                <div className="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ background: "linear-gradient(90deg,transparent,rgba(99,102,241,0.6),transparent)" }}
+                />
 
-                  {/* Bottom decorative line */}
-                  <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent rounded-b-[40px]" />
-                </ScrollStackItem>
-              );
-            })}
-          </ScrollStack>
+                {/* icon */}
+                <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-5"
+                  style={{ background: f.color }}>
+                  <Icon size={20} style={{ color: f.iconColor }} />
+                </div>
+
+                <h3 className="font-semibold text-slate-100 mb-2 text-base"
+                  style={{ fontFamily: "'Space Grotesk',sans-serif" }}>
+                  {f.title}
+                </h3>
+                <p className="text-slate-400 text-sm leading-relaxed">{f.desc}</p>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
   );
-};
-
-export default Features;
+}

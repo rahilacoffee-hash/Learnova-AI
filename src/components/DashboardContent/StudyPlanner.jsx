@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 
 import {
+  Link,
   useNavigate,
 } from "react-router-dom";
 
@@ -100,13 +101,9 @@ const StudyPlanner = () => {
 
         {tasks.map(
           (task, index) => (
-            <button
+            <Link
               key={index}
-              onClick={() =>
-                navigate(
-                  task.action
-                )
-              }
+             to={ task.action}
               className="
                 w-full
                 bg-white/5
@@ -160,7 +157,7 @@ const StudyPlanner = () => {
 
               </div>
 
-            </button>
+            </Link>
           )
         )}
 

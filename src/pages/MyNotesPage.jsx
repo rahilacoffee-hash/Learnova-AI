@@ -14,31 +14,24 @@ import {
   ChevronDown,
 } from "lucide-react";
 
-import {
-  getNotes,
-  deleteNote,
-} from "../services/api";
+import { getNotes, deleteNote } from "../services/api";
 
 import Sidebar from "../layouts/Sidebar";
 import MobileBottomNav from "../layouts/MobileBottomNav";
 
 const MyNotesPage = () => {
   const navigate = useNavigate();
-const [search, setSearch] = useState("");
+  const [search, setSearch] = useState("");
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [searchTerm, setSearchTerm] =
-    useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const [sortBy, setSortBy] =
-    useState("newest");
+  const [sortBy, setSortBy] = useState("newest");
 
-  const [showDeleteModal, setShowDeleteModal] =
-    useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  const [selectedNote, setSelectedNote] =
-    useState(null);
+  const [selectedNote, setSelectedNote] = useState(null);
 
   useEffect(() => {
     fetchNotes();
@@ -54,9 +47,7 @@ const [search, setSearch] = useState("");
     } catch (error) {
       console.error(error);
 
-      toast.error(
-        "Failed to load notes"
-      );
+      toast.error("Failed to load notes");
     } finally {
       setLoading(false);
     }
@@ -72,27 +63,15 @@ const [search, setSearch] = useState("");
     if (!selectedNote) return;
 
     try {
-      await deleteNote(
-        selectedNote._id
-      );
+      await deleteNote(selectedNote._id);
 
-      setNotes((prev) =>
-        prev.filter(
-          (note) =>
-            note._id !==
-            selectedNote._id
-        )
-      );
+      setNotes((prev) => prev.filter((note) => note._id !== selectedNote._id));
 
-      toast.success(
-        "Note deleted successfully"
-      );
+      toast.success("Note deleted successfully");
     } catch (error) {
       console.error(error);
 
-      toast.error(
-        "Failed to delete note"
-      );
+      toast.error("Failed to delete note");
     } finally {
       setShowDeleteModal(false);
 
@@ -100,90 +79,47 @@ const [search, setSearch] = useState("");
     }
   };
 
-  const filteredNotes =
-    useMemo(() => {
-      let filtered = [...notes];
+  const filteredNotes = useMemo(() => {
+    let filtered = [...notes];
 
-      if (searchTerm) {
-        filtered = filtered.filter(
-          (note) =>
-            note.title
-              ?.toLowerCase()
-              .includes(
-                searchTerm.toLowerCase()
-              ) ||
-            note.description
-              ?.toLowerCase()
-              .includes(
-                searchTerm.toLowerCase()
-              ) ||
-            note.tags?.some((tag) =>
-              tag
-                .toLowerCase()
-                .includes(
-                  searchTerm.toLowerCase()
-                )
-            )
-        );
+    if (searchTerm) {
+      filtered = filtered.filter(
+        (note) =>
+          note.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          note.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          note.tags?.some((tag) =>
+            tag.toLowerCase().includes(searchTerm.toLowerCase()),
+          ),
+      );
+    }
+
+    filtered.sort((a, b) => {
+      if (sortBy === "newest") {
+        return new Date(b.createdAt) - new Date(a.createdAt);
       }
 
-      filtered.sort((a, b) => {
-        if (sortBy === "newest") {
-          return (
-            new Date(b.createdAt) -
-            new Date(a.createdAt)
-          );
-        }
+      return new Date(a.createdAt) - new Date(b.createdAt);
+    });
 
-        return (
-          new Date(a.createdAt) -
-          new Date(b.createdAt)
-        );
-      });
+    return filtered;
+  }, [notes, searchTerm, sortBy]);
 
-      return filtered;
-    }, [
-      notes,
-      searchTerm,
-      sortBy,
-    ]);
+  const totalNotes = notes.length;
 
-  const totalNotes =
-    notes.length;
+  const totalTags = new Set(notes.flatMap((note) => note.tags || [])).size;
 
-  const totalTags =
-    new Set(
-      notes.flatMap(
-        (note) => note.tags || []
-      )
-    ).size;
+  const recentNotes = notes.filter((note) => {
+    const diff = Date.now() - new Date(note.createdAt).getTime();
 
-  const recentNotes =
-    notes.filter((note) => {
-      const diff =
-        Date.now() -
-        new Date(
-          note.createdAt
-        ).getTime();
-
-      return (
-        diff <
-        7 *
-          24 *
-          60 *
-          60 *
-          1000
-      );
-    }).length;
+    return diff < 7 * 24 * 60 * 60 * 1000;
+  }).length;
 
   if (loading) {
     return (
       <div className="min-h-screen bg-[#050816] flex">
-
         <Sidebar />
 
         <div className="flex-1 lg:ml-[320px] flex items-center justify-center">
-
           <div
             className="
               bg-[#0B1022]
@@ -197,16 +133,13 @@ const [search, setSearch] = useState("");
           >
             Loading notes...
           </div>
-
         </div>
-
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-[#050816] relative overflow-hidden">
-
       {/* Glow Effects */}
 
       <div className="absolute top-0 left-1/3 w-[500px] h-[500px] bg-indigo-600/10 blur-[180px] rounded-full" />
@@ -217,7 +150,7 @@ const [search, setSearch] = useState("");
 
       <Sidebar />
 
-      <div className="md:hidden">
+      <div className="lg:hidden">
         <MobileBottomNav />
       </div>
 
@@ -231,7 +164,6 @@ const [search, setSearch] = useState("");
           pb-32
         "
       >
-
         {/* Header */}
 
         <div
@@ -245,22 +177,16 @@ const [search, setSearch] = useState("");
             mb-10
           "
         >
-
           <div>
-
-            <h1 className="text-4xl font-bold text-white">
-              My Notes
-            </h1>
+            <h1 className="text-4xl font-bold text-white">My Notes</h1>
 
             <p className="text-slate-400 mt-2">
-              Organize and study your
-              learning materials
+              Organize and study your learning materials
             </p>
-
           </div>
           <div className="mb-10">
-  <div
-    className="
+            <div
+              className="
       rounded-3xl
       border
       border-white/10
@@ -268,15 +194,13 @@ const [search, setSearch] = useState("");
       backdrop-blur-xl
       p-2
     "
-  >
-    <input
-      type="text"
-      placeholder="Search notes..."
-      value={search}
-      onChange={(e) =>
-        setSearch(e.target.value)
-      }
-      className="
+            >
+              <input
+                type="text"
+                placeholder="Search notes..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="
         w-full
         bg-transparent
         px-4
@@ -285,14 +209,12 @@ const [search, setSearch] = useState("");
         placeholder:text-slate-500
         outline-none
       "
-    />
-  </div>
-</div>
+              />
+            </div>
+          </div>
 
           <button
-            onClick={() =>
-              navigate("/upload")
-            }
+            onClick={() => navigate("/upload")}
             className="
               bg-gradient-to-r
               from-indigo-600
@@ -309,20 +231,16 @@ const [search, setSearch] = useState("");
               shadow-cyan-500/20
             "
           >
-
             <Plus size={20} />
-
             Upload Notes
-
           </button>
-
         </div>
-    
-  <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-6">
-    {filteredNotes.map((note) => (
-      <div
-        key={note._id}
-        className="
+
+        <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-6">
+          {filteredNotes.map((note) => (
+            <div
+              key={note._id}
+              className="
           group
           relative
           overflow-hidden
@@ -337,10 +255,10 @@ const [search, setSearch] = useState("");
           hover:border-cyan-500/30
           hover:shadow-[0_25px_80px_rgba(6,182,212,0.12)]
         "
-      >
-        {/* Glow */}
-        <div
-          className="
+            >
+              {/* Glow */}
+              <div
+                className="
             absolute
             inset-0
             opacity-0
@@ -353,13 +271,13 @@ const [search, setSearch] = useState("");
             to-indigo-500/5
             pointer-events-none
           "
-        />
+              />
 
-        {/* Top */}
-        <div className="relative z-10 flex items-start justify-between mb-6">
-          <div className="flex gap-4">
-            <div
-              className="
+              {/* Top */}
+              <div className="relative z-10 flex items-start justify-between mb-6">
+                <div className="flex gap-4">
+                  <div
+                    className="
                 w-14
                 h-14
                 rounded-2xl
@@ -372,35 +290,34 @@ const [search, setSearch] = useState("");
                 shadow-lg
                 shadow-cyan-500/20
               "
-            >
-              <FileText className="text-white" />
-            </div>
+                  >
+                    <FileText className="text-white" />
+                  </div>
 
-            <div>
-              <h2 className="font-bold text-white text-lg line-clamp-1">
-                {note.title}
-              </h2>
+                  <div>
+                    <h2 className="font-bold text-white text-lg line-clamp-1">
+                      {note.title}
+                    </h2>
 
-              <p className="text-sm text-slate-400 mt-1">
-                {new Date(note.createdAt).toLocaleDateString()}
+                    <p className="text-sm text-slate-400 mt-1">
+                      {new Date(note.createdAt).toLocaleDateString()}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Description */}
+              <p className="text-slate-400 text-sm leading-relaxed line-clamp-3 mb-6">
+                {note.description || "No description available for this note."}
               </p>
-            </div>
-          </div>
-        </div>
 
-        {/* Description */}
-        <p className="text-slate-400 text-sm leading-relaxed line-clamp-3 mb-6">
-          {note.description ||
-            "No description available for this note."}
-        </p>
-
-        {/* Tags */}
-        <div className="flex flex-wrap gap-2 mb-8">
-          {note.tags?.length > 0 ? (
-            note.tags.map((tag, index) => (
-              <span
-                key={index}
-                className="
+              {/* Tags */}
+              <div className="flex flex-wrap gap-2 mb-8">
+                {note.tags?.length > 0 ? (
+                  note.tags.map((tag, index) => (
+                    <span
+                      key={index}
+                      className="
                   px-3
                   py-1
                   rounded-full
@@ -410,24 +327,20 @@ const [search, setSearch] = useState("");
                   text-cyan-400
                   text-xs
                 "
-              >
-                #{tag}
-              </span>
-            ))
-          ) : (
-            <span className="text-xs text-slate-500">
-              No tags
-            </span>
-          )}
-        </div>
+                    >
+                      #{tag}
+                    </span>
+                  ))
+                ) : (
+                  <span className="text-xs text-slate-500">No tags</span>
+                )}
+              </div>
 
-        {/* Actions */}
-        <div className="grid grid-cols-2 gap-3">
-          <button
-            onClick={() =>
-              navigate(`/summary/${note._id}`)
-            }
-            className="
+              {/* Actions */}
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  onClick={() => navigate(`/summary/${note._id}`)}
+                  className="
               rounded-2xl
               py-3
               bg-gradient-to-r
@@ -438,15 +351,13 @@ const [search, setSearch] = useState("");
               transition-all
               hover:scale-[1.02]
             "
-          >
-            Summary
-          </button>
+                >
+                  Summary
+                </button>
 
-          <button
-            onClick={() =>
-              navigate(`/chat/${note._id}`)
-            }
-            className="
+                <button
+                  onClick={() => navigate(`/chat/${note._id}`)}
+                  className="
               rounded-2xl
               py-3
               bg-green-500/10
@@ -461,16 +372,14 @@ const [search, setSearch] = useState("");
               hover:bg-green-500
               hover:text-white
             "
-          >
-            <MessageSquare size={16} />
-            Chat
-          </button>
+                >
+                  <MessageSquare size={16} />
+                  Chat
+                </button>
 
-          <button
-            onClick={() =>
-              navigate(`/flashcards/${note._id}`)
-            }
-            className="
+                <button
+                  onClick={() => navigate(`/flashcards/${note._id}`)}
+                  className="
               rounded-2xl
               py-3
               bg-cyan-500/10
@@ -481,15 +390,13 @@ const [search, setSearch] = useState("");
               hover:bg-cyan-500
               hover:text-white
             "
-          >
-            Flashcards
-          </button>
+                >
+                  Flashcards
+                </button>
 
-          <button
-            onClick={() =>
-              navigate(`/quiz/${note._id}`)
-            }
-            className="
+                <button
+                  onClick={() => navigate(`/quiz/${note._id}`)}
+                  className="
               rounded-2xl
               py-3
               bg-orange-500/10
@@ -504,18 +411,16 @@ const [search, setSearch] = useState("");
               hover:bg-orange-500
               hover:text-white
             "
-          >
-            <Brain size={16} />
-            Quiz
-          </button>
-        </div>
+                >
+                  <Brain size={16} />
+                  Quiz
+                </button>
+              </div>
 
-        {/* Delete */}
-        <button
-          onClick={() =>
-            handleDelete(note._id)
-          }
-          className="
+              {/* Delete */}
+              <button
+                onClick={() => handleDelete(note._id)}
+                className="
             mt-4
             w-full
             rounded-2xl
@@ -532,14 +437,13 @@ const [search, setSearch] = useState("");
             hover:bg-red-500
             hover:text-white
           "
-        >
-          <Trash2 size={16} />
-          Delete Note
-        </button>
-      </div>
-    ))}
-  </div>
-
+              >
+                <Trash2 size={16} />
+                Delete Note
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

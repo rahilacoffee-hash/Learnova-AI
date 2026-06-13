@@ -16,21 +16,16 @@ import RecentActivity from "./DashboardContent/RecentActivity";
 import AICoach from "./DashboardContent/AICoachsx";
 import StudyPlanner from "./DashboardContent/StudyPlanner";
 
-
-
 const DashboardContent = () => {
   const [loading, setLoading] = useState(true);
 
-  const [dashboardData, setDashboardData] =
-    useState({
-      notes: [],
-      summaries: [],
-      flashcards: [],
-    });
+  const [dashboardData, setDashboardData] = useState({
+    notes: [],
+    summaries: [],
+    flashcards: [],
+  });
 
-  const user =
-    JSON.parse(localStorage.getItem("user")) ||
-    {};
+  const user = JSON.parse(localStorage.getItem("user")) || {};
 
   useEffect(() => {
     fetchDashboard();
@@ -38,11 +33,7 @@ const DashboardContent = () => {
 
   const fetchDashboard = async () => {
     try {
-      const [
-        notesRes,
-        summariesRes,
-        flashcardsRes,
-      ] = await Promise.all([
+      const [notesRes, summariesRes, flashcardsRes] = await Promise.all([
         getNotes(),
         getAllSummaries(),
         getAllFlashcards(),
@@ -50,10 +41,8 @@ const DashboardContent = () => {
 
       setDashboardData({
         notes: notesRes.data.notes || [],
-        summaries:
-          summariesRes.data.summaries || [],
-        flashcards:
-          flashcardsRes.data.flashcards || [],
+        summaries: summariesRes.data.summaries || [],
+        flashcards: flashcardsRes.data.flashcards || [],
       });
     } catch (error) {
       console.log(error);
@@ -71,22 +60,18 @@ const DashboardContent = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
 
       <WelcomeSection user={user} />
 
-      {/* Top */}
-      <div className="grid gap-6 xl:grid-cols-12">
+      {/* Top — Stats + Streak */}
+      <div className="grid gap-4 sm:gap-6 grid-cols-1 xl:grid-cols-12">
 
         <div className="xl:col-span-9">
           <StatsGrid
             notes={dashboardData.notes}
-            summaries={
-              dashboardData.summaries
-            }
-            flashcards={
-              dashboardData.flashcards
-            }
+            summaries={dashboardData.summaries}
+            flashcards={dashboardData.flashcards}
           />
         </div>
 
@@ -96,45 +81,40 @@ const DashboardContent = () => {
 
       </div>
 
-      {/* Middle */}
-      <div className="grid gap-6 xl:grid-cols-12">
+      {/* Middle — Insights + Subjects + Quick Actions */}
+      <div className="grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-12">
 
-        <div className="xl:col-span-4">
+        <div className="md:col-span-1 xl:col-span-4">
           <InsightsCard />
         </div>
 
-        <div className="xl:col-span-5">
+        <div className="md:col-span-1 xl:col-span-5">
           <SubjectsCard />
         </div>
 
-        <div className="xl:col-span-3">
+        <div className="md:col-span-2 xl:col-span-3">
           <QuickActions />
         </div>
 
       </div>
 
-      {/* Bottom */}
-      <div className="grid gap-6 xl:grid-cols-12">
+      {/* Bottom — Heatmap + Activity + Planner/Coach */}
+      <div className="grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-12">
 
-        <div className="xl:col-span-4">
+        <div className="md:col-span-1 xl:col-span-4">
           <StudyHeatmap />
         </div>
 
-        <div className="xl:col-span-5">
+        <div className="md:col-span-1 xl:col-span-5">
           <RecentActivity
             notes={dashboardData.notes}
-            summaries={
-              dashboardData.summaries
-            }
-            flashcards={
-              dashboardData.flashcards
-            }
+            summaries={dashboardData.summaries}
+            flashcards={dashboardData.flashcards}
           />
         </div>
 
-        <div className="xl:col-span-3 space-y-6">
-          <StudyPlanner  />
-
+        <div className="md:col-span-2 xl:col-span-3 space-y-4 sm:space-y-6">
+          <StudyPlanner />
           <AICoach />
         </div>
 

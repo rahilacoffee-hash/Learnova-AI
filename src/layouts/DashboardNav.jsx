@@ -6,9 +6,7 @@ import { BiSearch } from "react-icons/bi";
 const DashboardNav = () => {
   const navigate = useNavigate();
 
-  const user = JSON.parse(
-    localStorage.getItem("user") || "null"
-  );
+  const user = JSON.parse(localStorage.getItem("user") || "null");
 
   const isLoggedIn = !!user?.name;
 
@@ -39,14 +37,10 @@ const DashboardNav = () => {
         <div>
           <h1 className="text-lg font-bold text-white">
             Learn
-            <span className="text-cyan-400">
-              ova AI
-            </span>
+            <span className="text-cyan-400">ova AI</span>
           </h1>
 
-          <p className="text-[10px] text-slate-400">
-            Smart Learning
-          </p>
+          <p className="text-[10px] text-slate-400">Smart Learning</p>
         </div>
 
         {/* Actions */}
@@ -62,10 +56,7 @@ const DashboardNav = () => {
               flex items-center justify-center
             "
           >
-            <Bell
-              size={18}
-              className="text-slate-300"
-            />
+            <Bell size={18} className="text-slate-300" />
 
             <span
               className="
@@ -82,9 +73,7 @@ const DashboardNav = () => {
 
           {isLoggedIn ? (
             <button
-              onClick={() =>
-                navigate("/profile")
-              }
+              onClick={() => navigate("/profile")}
               className="
                 w-10
                 h-10
@@ -98,15 +87,24 @@ const DashboardNav = () => {
               "
             >
               <img
-                src={ "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSatxU0q9eadOAPWotvfcEY6MSpeJmU7QS0husqy2VrEw&s=10" || user.avatar}
-                />
-
+                src={user.avatar}
+                alt={user.name}
+                className="
+    w-10
+    h-10
+    rounded-2xl
+    object-cover
+  "
+                onError={(e) => {
+                  e.target.src = `https://ui-avatars.com/api/?name=${
+                    user?.name || "User"
+                  }&background=4f46e5&color=fff`;
+                }}
+              />
             </button>
           ) : (
             <button
-              onClick={() =>
-                navigate("/login")
-              }
+              onClick={() => navigate("/login")}
               className="
                 px-4
                 py-2
@@ -178,14 +176,10 @@ const DashboardNav = () => {
 
         {/* Left */}
         <div className="relative z-10">
-          <h2 className="text-2xl font-bold text-white">
-            Dashboard
-          </h2>
+          <h2 className="text-2xl font-bold text-white">Dashboard</h2>
 
           <p className="text-sm text-slate-400">
-            Welcome back,
-            {" "}
-            {user?.name || "Student"}
+            Welcome back, {user?.name || "Student"}
           </p>
         </div>
 
@@ -257,9 +251,7 @@ const DashboardNav = () => {
           {/* User */}
           {isLoggedIn ? (
             <button
-              onClick={() =>
-                navigate("/profile")
-              }
+              onClick={() => navigate("/profile")}
               className="
                 flex
                 items-center
@@ -287,29 +279,32 @@ const DashboardNav = () => {
                   font-bold
                 "
               >
-
                 <img
-                src={ "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSatxU0q9eadOAPWotvfcEY6MSpeJmU7QS0husqy2VrEw&s=10" || user.avatar}
+                  src={user.avatar}
+                  alt={user.name}
+                  className="
+    w-12
+    h-12
+    rounded-2xl
+    object-cover
+  "
+                  onError={(e) => {
+                    e.target.src = `https://ui-avatars.com/api/?name=${
+                      user?.name || "User"
+                    }&background=4f46e5&color=fff`;
+                  }}
                 />
-
-              
               </div>
 
               <div className="text-left">
-                <p className="font-semibold text-white">
-                  {user.name}
-                </p>
+                <p className="font-semibold text-white">{user.name}</p>
 
-                <p className="text-xs text-slate-400">
-                  Premium Student
-                </p>
+                <p className="text-xs text-slate-400">Premium Student</p>
               </div>
             </button>
           ) : (
             <button
-              onClick={() =>
-                navigate("/login")
-              }
+              onClick={() => navigate("/login")}
               className="
                 px-6
                 h-12

@@ -64,36 +64,41 @@ const ProfileContent = () => {
     fileInputRef.current.click();
   };
 
-const handleAvatarChange = async (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
+  const handleAvatarChange = async (e) => {
+    const file = e.target.files[0];
 
-  const localPreview = URL.createObjectURL(file);
-  setAvatarPreview(localPreview);
+    if (!file) return;
 
-  try {
-    setAvatarLoading(true);
-    const formData = new FormData();
-    formData.append("avatar", file);
+    const preview = URL.createObjectURL(file);
 
-    console.log("file:", file.name, file.type, file.size);
-    const res = await uploadAvatar(formData);
-    console.log("res.data:", JSON.stringify(res.data));
+    setAvatarPreview(preview);
 
-    const updatedUser = res.data?.user;
-    if (updatedUser) {
-      const avatarUrl = updatedUser.avatar || updatedUser.profilePicture || updatedUser.image;
-      setUser(updatedUser);
-      if (avatarUrl) setAvatarPreview(avatarUrl);
-      localStorage.setItem("user", JSON.stringify(updatedUser));
+    try {
+      setAvatarLoading(true);
+
+      const formData = new FormData();
+
+      formData.append("avatar", file);
+
+      const res = await uploadAvatar(formData);
+
+      if (res.data.success) {
+        const updatedUser = res.data.user;
+
+        setUser(updatedUser);
+
+        setAvatarPreview(updatedUser.avatar);
+
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+      }
+    } catch (error) {
+      console.log(error.response?.data || error);
+
+      alert(error.response?.data?.message || "Failed to upload avatar");
+    } finally {
+      setAvatarLoading(false);
     }
-  } catch (err) {
-    console.log("status:", err.response?.status);
-    console.log("error:", JSON.stringify(err.response?.data));
-  } finally {
-    setAvatarLoading(false);
-  }
-};
+  };
   const handleSaveProfile = () => {
     const updated = { ...user, ...editForm };
     setUser(updated);
@@ -149,7 +154,6 @@ const handleAvatarChange = async (e) => {
 
   return (
     <div className="min-h-screen bg-[#] relative overflow-hidden">
-
       <div className="absolute top-40 left-80 w-96 h-96 bg-purple-500/20 blur-[180px] rounded-full pointer-events-none" />
       <div className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-500/20 blur-[180px] rounded-full pointer-events-none" />
 
@@ -162,15 +166,12 @@ const handleAvatarChange = async (e) => {
       />
 
       <div className="relative z-10 lg:ml-[320px] px-4 md:px-8 pt-28 pb-16 max-w-5xl">
-
         {/* Profile Hero */}
         <div className="bg-white/80 backdrop-blur-xl border border-white/60 rounded-3xl shadow-xl overflow-hidden mb-6">
-
           <div className="h-28 bg-white" />
 
           <div className="px-8 pb-8">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 -mt-14">
-
               {/* Avatar */}
               <div className="relative w-fit">
                 <div
@@ -179,7 +180,11 @@ const handleAvatarChange = async (e) => {
                 >
                   {avatarPreview ? (
                     <img
-                      src={avatarPreview}
+                      src={
+                        avatarPreview ||
+                        "https://ui-avatars.com/api/?name=" +
+                          encodeURIComponent(user.name || "User")
+                      }
                       alt="avatar"
                       className="w-full h-full object-cover"
                     />
@@ -281,13 +286,11 @@ const handleAvatarChange = async (e) => {
 
         {/* Account Info */}
         <div className="bg-white/80 backdrop-blur-xl border border-white/60 rounded-3xl p-8 shadow-xl">
-
           <h2 className="text-lg font-bold text-gray-900 mb-6">
             Account information
           </h2>
 
           <div className="grid md:grid-cols-2 gap-6">
-
             <div>
               <p className="text-xs text-gray-400 font-medium mb-2 uppercase tracking-wide">
                 Full name
@@ -346,7 +349,6 @@ const handleAvatarChange = async (e) => {
                 </span>
               </div>
             </div>
-
           </div>
 
           <div className="mt-8 pt-6 border-t border-slate-100">
@@ -358,7 +360,6 @@ const handleAvatarChange = async (e) => {
               Log out
             </button>
           </div>
-
         </div>
       </div>
     </div>
