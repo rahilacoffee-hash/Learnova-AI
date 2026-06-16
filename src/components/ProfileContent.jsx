@@ -66,40 +66,27 @@ const ProfileContent = () => {
   };
 
   const handleAvatarChange = async (e) => {
-    const file = e.target.files[0];
-
-    if (!file) return;
-
-    const preview = URL.createObjectURL(file);
-
-    setAvatarPreview(preview);
-
-    try {
-      setAvatarLoading(true);
-
-      const formData = new FormData();
-
-      formData.append("avatar", file);
-
-      const res = await uploadAvatar(formData);
-
-      if (res.data.success) {
-        const updatedUser = res.data.user;
-
-        setUser(updatedUser);
-
-        setAvatarPreview(updatedUser.avatar);
-
-        localStorage.setItem("user", JSON.stringify(updatedUser));
-      }
-    } catch (error) {
-      console.log(error.response?.data || error);
-
-      toast(error.response?.data?.message || "Failed to upload avatar");
-    } finally {
-      setAvatarLoading(false);
+  const file = e.target.files[0];
+  if (!file) return;
+  setAvatarPreview(URL.createObjectURL(file));
+  try {
+    setAvatarLoading(true);
+    const formData = new FormData();
+    formData.append("avatar", file);
+    const res = await uploadAvatar(formData);
+    if (res.data.success) {
+      const updatedUser = res.data.user;
+      const raw = updatedUser.avatar || updatedUser.profilePicture || updatedUser.image;
+      const url = raw?.startsWith("http") ? raw : `${import.meta.env.VITE_API_URL}/${raw}`;
+      const toSave = { ...updatedUser, avatar: url };
+      setUser(toSave);
+      setAvatarPreview(url);
+      localStorage.setItem("user", JSON.stringify(toSave));
     }
-  };
+  } catch (error) {
+    toast.error(error.response?.data?.message || "Failed to upload avatar");
+  } finally { setAvatarLoading(false); }
+};
   const handleSaveProfile = () => {
     const updated = { ...user, ...editForm };
     setUser(updated);

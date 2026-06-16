@@ -67,7 +67,7 @@ const AiChatPage = () => {
         <DashboardNav />
 
         {/* Page Content */}
-        <div className="mt-24">
+        <div className="mt-24 mb-12">
           <AiChatcontent />
         </div>
 
