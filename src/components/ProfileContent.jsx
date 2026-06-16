@@ -15,7 +15,12 @@ import {
   Loader,
 } from "lucide-react";
 
-import { getNotes, getAllSummaries, uploadAvatar } from "../services/api";
+import {
+  getNotes,
+  getAllSummaries,
+  uploadAvatar,
+  getProfile,
+} from "../services/api";
 import toast from "react-hot-toast";
 
 const ProfileContent = () => {
@@ -37,14 +42,44 @@ const ProfileContent = () => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       const parsed = JSON.parse(storedUser);
-      setUser(parsed);
-      setEditForm({ name: parsed.name, email: parsed.email });
-      const savedAvatar =
-        parsed.avatar || parsed.profilePicture || parsed.image;
-      if (savedAvatar) setAvatarPreview(savedAvatar);
+      const rawAvatar = parsed.avatar || parsed.profilePicture || parsed.image;
+      const url = rawAvatar
+        ? rawAvatar.startsWith("http")
+          ? rawAvatar
+          : `${import.meta.env.VITE_API_URL}/${rawAvatar}`
+        : "";
+      const normalized = { ...parsed, avatar: url };
+
+      setUser(normalized);
+      setEditForm({ name: normalized.name, email: normalized.email });
+      if (url) setAvatarPreview(url);
     }
+
     fetchStats();
+    refreshProfile();
   }, []);
+
+  const refreshProfile = async () => {
+    try {
+      const res = await getProfile();
+      const profileUser = res.data.user;
+      const rawAvatar =
+        profileUser.avatar || profileUser.profilePicture || profileUser.image;
+      const url = rawAvatar
+        ? rawAvatar.startsWith("http")
+          ? rawAvatar
+          : `${import.meta.env.VITE_API_URL}/${rawAvatar}`
+        : "";
+      const normalized = { ...profileUser, avatar: url };
+
+      setUser(normalized);
+      setEditForm({ name: normalized.name, email: normalized.email });
+      if (url) setAvatarPreview(url);
+      localStorage.setItem("user", JSON.stringify(normalized));
+    } catch (err) {
+      console.log("Unable to refresh profile", err);
+    }
+  };
 
   const fetchStats = async () => {
     try {
@@ -66,27 +101,32 @@ const ProfileContent = () => {
   };
 
   const handleAvatarChange = async (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-  setAvatarPreview(URL.createObjectURL(file));
-  try {
-    setAvatarLoading(true);
-    const formData = new FormData();
-    formData.append("avatar", file);
-    const res = await uploadAvatar(formData);
-    if (res.data.success) {
-      const updatedUser = res.data.user;
-      const raw = updatedUser.avatar || updatedUser.profilePicture || updatedUser.image;
-      const url = raw?.startsWith("http") ? raw : `${import.meta.env.VITE_API_URL}/${raw}`;
-      const toSave = { ...updatedUser, avatar: url };
-      setUser(toSave);
-      setAvatarPreview(url);
-      localStorage.setItem("user", JSON.stringify(toSave));
+    const file = e.target.files[0];
+    if (!file) return;
+    setAvatarPreview(URL.createObjectURL(file));
+    try {
+      setAvatarLoading(true);
+      const formData = new FormData();
+      formData.append("avatar", file);
+      const res = await uploadAvatar(formData);
+      if (res.data.success) {
+        const updatedUser = res.data.user;
+        const raw =
+          updatedUser.avatar || updatedUser.profilePicture || updatedUser.image;
+        const url = raw?.startsWith("http")
+          ? raw
+          : `${import.meta.env.VITE_API_URL}/${raw}`;
+        const toSave = { ...updatedUser, avatar: url };
+        setUser(toSave);
+        setAvatarPreview(url);
+        localStorage.setItem("user", JSON.stringify(toSave));
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to upload avatar");
+    } finally {
+      setAvatarLoading(false);
     }
-  } catch (error) {
-    toast.error(error.response?.data?.message || "Failed to upload avatar");
-  } finally { setAvatarLoading(false); }
-};
+  };
   const handleSaveProfile = () => {
     const updated = { ...user, ...editForm };
     setUser(updated);
@@ -168,11 +208,7 @@ const ProfileContent = () => {
                 >
                   {avatarPreview ? (
                     <img
-                      src={
-                        avatarPreview ||
-                        "https://ui-avatars.com/api/?name=" +
-                          encodeURIComponent(user.name || "User")
-                      }
+                      src={avatarPreview || user.avatar}
                       alt="avatar"
                       className="w-full h-full object-cover"
                     />

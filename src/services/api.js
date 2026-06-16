@@ -16,11 +16,9 @@ API.interceptors.request.use((req) => {
 });
 
 // ================= AUTH =================
-export const loginUser = (data) =>
-  API.post("/auth/login", data);
+export const loginUser = (data) => API.post("/auth/login", data);
 
-export const registerUser = (data) =>
-  API.post("/auth/register", data);
+export const registerUser = (data) => API.post("/auth/register", data);
 
 export const uploadAvatar = (formData) =>
   API.post("/auth/upload-avatar", formData, {
@@ -28,6 +26,8 @@ export const uploadAvatar = (formData) =>
       "Content-Type": "multipart/form-data",
     },
   });
+
+export const getProfile = () => API.get("/auth/me");
 // ================= NOTES =================
 export const uploadNote = (formData) =>
   API.post("/notes/upload", formData, {
@@ -36,21 +36,17 @@ export const uploadNote = (formData) =>
     },
   });
 
-export const getNotes = () =>
-  API.get("/notes");
+export const getNotes = () => API.get("/notes");
 
-export const getNoteById = (id) =>
-  API.get(`/notes/${id}`);
+export const getNoteById = (id) => API.get(`/notes/${id}`);
 
-export const deleteNote = (id) =>
-  API.delete(`/notes/${id}`);
+export const deleteNote = (id) => API.delete(`/notes/${id}`);
 
 // ================= SUMMARIES =================
 export const generateSummary = (noteId) =>
   API.post("/ai/summarize", { noteId });
 
-export const getAllSummaries = () =>
-  API.get("/ai/summaries");
+export const getAllSummaries = () => API.get("/ai/summaries");
 
 // ================= AI CHAT =================
 export const askAI = (noteId, question) =>
@@ -60,11 +56,9 @@ export const askAI = (noteId, question) =>
   });
 
 // ================= QUIZZES =================
-export const generateQuiz = (data) =>
-  API.post("/quiz/generate", data);
+export const generateQuiz = (data) => API.post("/quiz/generate", data);
 
-export const getQuiz = (quizId) =>
-  API.get(`/quiz/${quizId}`);
+export const getQuiz = (quizId) => API.get(`/quiz/${quizId}`);
 
 export const submitQuiz = (quizId, answers) =>
   API.post(`/quiz/${quizId}/submit`, {
@@ -75,34 +69,23 @@ export const submitQuiz = (quizId, answers) =>
 export const generateFlashcards = (noteId) =>
   API.post("/flashcards/generate", { noteId });
 
-export const getFlashcardsByNote = (noteId) =>
-  API.get(`/flashcards/${noteId}`);
+export const getFlashcardsByNote = (noteId) => API.get(`/flashcards/${noteId}`);
 
-export const getAllFlashcards = () =>
-  API.get("/flashcards");
+export const getAllFlashcards = () => API.get("/flashcards");
 
 // ================= DASHBOARD =================
-export const getOverview = () =>
-  API.get("/dashboard/overview");
+export const getOverview = () => API.get("/dashboard/overview");
 
-export const getActivity = () =>
-  API.get("/dashboard/activity");
+export const getActivity = () => API.get("/dashboard/activity");
 
-export const getHeatmap = () =>
-  API.get("/dashboard/heatmap");
+export const getHeatmap = () => API.get("/dashboard/heatmap");
 
-export const getStreak = () =>
-  API.get("/dashboard/streak");
+export const getStreak = () => API.get("/dashboard/streak");
 
+export const getDashboard = () => API.get("/dashboard");
 
-export const getDashboard = () =>
-  API.get("/dashboard");
+export const getQuizAnalytics = () => API.get("/dashboard/quizzes");
 
-export const getQuizAnalytics = () =>
-  API.get("/dashboard/quizzes");
-
-
-export const getPlanner = () =>
-  API.get("/dashboard/planner");
+export const getPlanner = () => API.get("/dashboard/planner");
 
 export default API;

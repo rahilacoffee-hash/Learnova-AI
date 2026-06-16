@@ -17,7 +17,7 @@ export default function About() {
 
     {
       initials: "GJ",
-      name: "Glory Jay",
+      name: "Glory Judah Garuba",
       role: "Founder & Backend Developer",
       grad: "linear-gradient(135deg,#540303,#260000)",
       bio: "Built LearnOva AI  to help students study smarter using the power of AI.",

@@ -9,16 +9,17 @@ import DashboardLayout from "./pages/Dashboard";
 import UploadPage from "./pages/UploadPage";
 import MyNotesPage from "./pages/MyNotesPage";
 import SummaryPage from "./pages/SummaryPage";
-import ProfilePage from "./pages/ProfilePage";import AiChatPage from "./pages/AiChatPage";
+import ProfilePage from "./pages/ProfilePage";
+import AiChatPage from "./pages/AiChatPage";
 import QuizPage from "./pages/QuizPage";
 import FlashcardsPage from "./pages/FlashcardsPage";
-import ProfileContent from "./components/Editprofile";
+import ProfileContent from "./components/ProfileContent";
 import Quiz from "./pages/Quiz";
 import Flashcards from "./components/Flashcards";
 import { Toaster } from "react-hot-toast";
 
 const App = () => {
-    const [darkMode] = useState(() => {
+  const [darkMode] = useState(() => {
     return localStorage.getItem("theme") === "dark";
   });
 
@@ -33,33 +34,27 @@ const App = () => {
   }, [darkMode]);
   return (
     <>
-      <Toaster  />
-    <BrowserRouter>
-  
-      <Routes>
-     
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+      <Toaster />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
 
-        <Route path="/dashboard" element={<DashboardLayout />} />
-        <Route path="/upload" element={<UploadPage />} />
-        <Route path="/notes" element={<MyNotesPage />} />
-        <Route path="/summary/:noteId" element={<SummaryPage />} />
-        <Route path="/quiz/:noteId" element={<QuizPage />} />
-        <Route path="/chat" element={<AiChatPage />} />
-        <Route path="/chat/:noteId" element={<AiChatPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/edit" element={<ProfileContent />} />
-        <Route
-  path="/flashcards/:noteId"
-  element={<FlashcardsPage />}
-/>
-  <Route path="/quiz" element={<Quiz />} />
-  <Route path="/flashcard" element={<Flashcards />} />
-
-      </Routes>
-    </BrowserRouter>
+          <Route path="/dashboard" element={<DashboardLayout />} />
+          <Route path="/upload" element={<UploadPage />} />
+          <Route path="/notes" element={<MyNotesPage />} />
+          <Route path="/summary/:noteId" element={<SummaryPage />} />
+          <Route path="/quiz/:noteId" element={<QuizPage />} />
+          <Route path="/chat" element={<AiChatPage />} />
+          <Route path="/chat/:noteId" element={<AiChatPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/edit" element={<ProfileContent />} />
+          <Route path="/flashcards/:noteId" element={<FlashcardsPage />} />
+          <Route path="/quiz" element={<Quiz />} />
+          <Route path="/flashcard" element={<Flashcards />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 };
