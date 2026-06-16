@@ -133,12 +133,13 @@ const Sidebar = () => {
                   ${
                     isActive
                       ? `
-                        bg-gradient-to-r
-                        from-indigo-600
-                        to-cyan-500
+                      text-slate-400
+                        borde
+                        glow-border
                         text-white
                         shadow-lg
                         shadow-cyan-500/20
+                        
                       `
                       : `
                         text-slate-400
@@ -177,9 +178,7 @@ const Sidebar = () => {
                 w-14
                 h-14
                 rounded-2xl
-                bg-gradient-to-r
-                from-indigo-600
-                to-cyan-500
+              
                 flex
                 items-center
                 justify-center

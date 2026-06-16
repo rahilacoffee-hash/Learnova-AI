@@ -110,9 +110,7 @@ const SubjectsCard = () => {
           Active Subjects
         </h2>
 
-        <button className="text-cyan-400">
-          Live Data
-        </button>
+       
       </div>
 
       <div className="space-y-6 mt-8">

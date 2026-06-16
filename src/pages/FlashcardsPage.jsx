@@ -48,10 +48,7 @@ const FlashcardsPage = () => {
           rounded-full
         "
       />
-      {/* Mobile Header */}
-      <div className="md:hidden">
-        <MobileDashNav />
-      </div>
+      
 
       {/* Desktop Sidebar */}
       <div className="hidden md:block">

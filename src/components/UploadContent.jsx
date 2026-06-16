@@ -227,6 +227,7 @@ const UploadContent = () => {
               rounded-2xl
               bg-white/5
               border border-white/10
+              borde
               px-5 py-4
               text-white
               placeholder:text-slate-500
@@ -252,6 +253,7 @@ const UploadContent = () => {
               w-full
               mt-2
               rounded-2xl
+               borde
               bg-white/5
               border border-white/10
               px-5 py-4
@@ -287,6 +289,7 @@ const UploadContent = () => {
             text-white
             placeholder:text-slate-500
             resize-none
+             borde
             focus:outline-none
             focus:border-purple-500
           "

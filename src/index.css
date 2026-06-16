@@ -92,6 +92,11 @@
   background-color: #d6813b;
 }
 
+.borde{
+  border: 4px inset rgb(100 116 139 / 1);
+  border-radius: 20px;
+}
+
 @layer utilities {
 
   .animated-gradient {

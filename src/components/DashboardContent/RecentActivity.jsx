@@ -109,9 +109,7 @@ const RecentActivity = () => {
         </h2>
 
         <div className="flex items-center gap-3">
-          <span className="text-cyan-400 text-sm">
-            Live Data
-          </span>
+         
 
           <div className="flex gap-2">
             <button

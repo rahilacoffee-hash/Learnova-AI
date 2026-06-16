@@ -155,9 +155,6 @@ const InsightsCard = () => {
           AI Learning Insights
         </h2>
 
-        <span className="text-cyan-400 text-sm">
-          Live Data
-        </span>
       </div>
 
       <div className="space-y-6 mt-8">

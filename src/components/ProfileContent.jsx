@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 
 import { getNotes, getAllSummaries, uploadAvatar } from "../services/api";
+import toast from "react-hot-toast";
 
 const ProfileContent = () => {
   const navigate = useNavigate();
@@ -94,7 +95,7 @@ const ProfileContent = () => {
     } catch (error) {
       console.log(error.response?.data || error);
 
-      alert(error.response?.data?.message || "Failed to upload avatar");
+      toast(error.response?.data?.message || "Failed to upload avatar");
     } finally {
       setAvatarLoading(false);
     }
@@ -153,7 +154,7 @@ const ProfileContent = () => {
     : "?";
 
   return (
-    <div className="min-h-screen bg-[#] relative overflow-hidden">
+    <div className="min-h-screen bg-slate-900 relative overflow-hidden">
       <div className="absolute top-40 left-80 w-96 h-96 bg-purple-500/20 blur-[180px] rounded-full pointer-events-none" />
       <div className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-500/20 blur-[180px] rounded-full pointer-events-none" />
 
@@ -167,16 +168,16 @@ const ProfileContent = () => {
 
       <div className="relative z-10 lg:ml-[320px] px-4 md:px-8 pt-28 pb-16 max-w-5xl">
         {/* Profile Hero */}
-        <div className="bg-white/80 backdrop-blur-xl border border-white/60 rounded-3xl shadow-xl overflow-hidden mb-6">
-          <div className="h-28 bg-white" />
+        <div className="bg-white/80 backdrop-blur-xl border border-white/60 rounded-3xl shadow-xl overflow-hidden mb-6 borde">
+          <div className="h-28 bg-slate-900" />
 
-          <div className="px-8 pb-8">
+          <div className="px-8 pb-8 bg-slate-900">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 -mt-14">
               {/* Avatar */}
               <div className="relative w-fit">
                 <div
                   onClick={handleAvatarClick}
-                  className="w-24 h-24 rounded-2xl border-4 border-white shadow-lg overflow-hidden cursor-pointer group relative"
+                  className="w-24 h-24 borde rounded-2xl border-4 border-white shadow-lg overflow-hidden cursor-pointer group relative"
                 >
                   {avatarPreview ? (
                     <img
@@ -216,7 +217,7 @@ const ProfileContent = () => {
               </div>
 
               {/* Edit / Save buttons */}
-              <div className="flex gap-3 mb-1">
+              <div className="flex gap-3 mb-1 0">
                 {editing ? (
                   <>
                     <button
@@ -246,8 +247,8 @@ const ProfileContent = () => {
               </div>
             </div>
 
-            <div className="mt-4">
-              <h1 className="text-2xl font-bold text-gray-900">
+            <div className="mt-4 ">
+              <h1 className="text-2xl font-bold text-white">
                 {user.name || "No name set"}
               </h1>
               <p className="text-gray-400 text-sm mt-1 flex items-center gap-1.5">
@@ -269,7 +270,7 @@ const ProfileContent = () => {
             return (
               <div
                 key={card.label}
-                className="bg-white/80 backdrop-blur-xl border border-white/60 rounded-2xl p-5 shadow-md"
+                className="bg-slate-900/80 backdrop-blur-xl border border-white/60 borde   rounded-2xl p-5 shadow-md"
               >
                 <div
                   className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
@@ -277,7 +278,7 @@ const ProfileContent = () => {
                 >
                   <Icon size={20} style={{ color: card.color }} />
                 </div>
-                <p className="text-2xl font-bold text-gray-900">{card.value}</p>
+                <p className="text-2xl font-bold text-white">{card.value}</p>
                 <p className="text-gray-400 text-sm mt-1">{card.label}</p>
               </div>
             );
@@ -285,7 +286,7 @@ const ProfileContent = () => {
         </div>
 
         {/* Account Info */}
-        <div className="bg-white/80 backdrop-blur-xl border border-white/60 rounded-3xl p-8 shadow-xl">
+        <div className="bg-slate-900/80  backdrop-blur-xl border border-white/60 borde rounded-3xl p-8 shadow-xl">
           <h2 className="text-lg font-bold text-gray-900 mb-6">
             Account information
           </h2>
@@ -304,7 +305,7 @@ const ProfileContent = () => {
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-gray-800 outline-none focus:border-indigo-400 transition"
                 />
               ) : (
-                <div className="bg-slate-50 rounded-xl px-4 py-3 text-sm text-gray-800">
+                <div className="bg-slate-900 borde rounded-xl px-4 py-3 text-sm text-gray-200">
                   {user.name || "—"}
                 </div>
               )}
@@ -323,7 +324,7 @@ const ProfileContent = () => {
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-gray-800 outline-none focus:border-indigo-400 transition"
                 />
               ) : (
-                <div className="bg-slate-50 rounded-xl px-4 py-3 text-sm text-gray-800 break-all">
+                <div className="bg-slate-900 borde  rounded-xl px-4 py-3 text-sm text-gray-200 break-all">
                   {user.email || "—"}
                 </div>
               )}
@@ -333,7 +334,7 @@ const ProfileContent = () => {
               <p className="text-xs text-gray-400 font-medium mb-2 uppercase tracking-wide">
                 Account type
               </p>
-              <div className="bg-slate-50 rounded-xl px-4 py-3 text-sm text-gray-800">
+              <div className="bg-slate-900 borde rounded-xl px-4 py-3 text-sm text-gray-200">
                 Student
               </div>
             </div>
@@ -342,7 +343,7 @@ const ProfileContent = () => {
               <p className="text-xs text-gray-400 font-medium mb-2 uppercase tracking-wide">
                 Learning status
               </p>
-              <div className="bg-slate-50 rounded-xl px-4 py-3 text-sm">
+              <div className="bg-slate-900 borde rounded-xl px-4 py-3 text-sm">
                 <span className="inline-flex items-center gap-1.5 text-emerald-600 font-medium">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
                   Active
@@ -351,7 +352,7 @@ const ProfileContent = () => {
             </div>
           </div>
 
-          <div className="mt-8 pt-6 border-t border-slate-100">
+          <div className="mt-8 pt-6 border-t border-gray-500">
             <button
               onClick={handleLogout}
               className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-red-50 text-red-500 text-sm font-medium hover:bg-red-100 transition"

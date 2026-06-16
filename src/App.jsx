@@ -33,7 +33,7 @@ const App = () => {
   }, [darkMode]);
   return (
     <>
-      <Toaster />
+      <Toaster  />
     <BrowserRouter>
   
       <Routes>

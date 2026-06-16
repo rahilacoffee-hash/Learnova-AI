@@ -23,7 +23,7 @@ export const registerUser = (data) =>
   API.post("/auth/register", data);
 
 export const uploadAvatar = (formData) =>
-  API.post("/auth/avatar", formData, {
+  API.post("/auth/upload-avatar", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },

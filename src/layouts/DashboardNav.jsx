@@ -270,9 +270,7 @@ const DashboardNav = () => {
                   w-12
                   h-12
                   rounded-2xl
-                  bg-gradient-to-r
-                  from-indigo-600
-                  to-cyan-500
+                 
                   flex items-center
                   justify-center
                   text-white

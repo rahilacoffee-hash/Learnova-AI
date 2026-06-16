@@ -233,7 +233,7 @@ const AiChatContent = () => {
             </div>
 
             {/* Selected Note Footer */}
-            {selectedNoteData && (
+            {/* {selectedNoteData && (
               <div className="p-4 sm:p-5 border-t border-white/10">
                 <div className="rounded-3xl bg-white/[0.03] border border-white/10 p-4 sm:p-5">
                   <div className="flex items-center gap-3 mb-3">
@@ -250,7 +250,7 @@ const AiChatContent = () => {
                   </p>
                 </div>
               </div>
-            )}
+            )} */}
           </div>
 
           {/* ===== CHAT PANEL ===== */}
